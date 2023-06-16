@@ -14,10 +14,16 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-
     {
-        $posts= Post::paginate(10);
-        return view('admin.posts.index', compact('posts'));
+        $direction = 'asc';
+        $posts= Post::orderBy('id', $direction)->paginate(10);
+        return view('admin.posts.index', compact('posts','direction'));
+    }
+
+    public function orderby ($direction){
+        $direction = $direction == 'asc' ? 'desc' : 'asc';
+        $posts= Post::orderBy('id', $direction)->paginate(10);
+        return view('admin.posts.index', compact('posts', 'direction'));
     }
 
     /**
