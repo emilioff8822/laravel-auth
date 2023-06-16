@@ -5,6 +5,10 @@
         <h2 class="fs-4 text-secondary my-4">
             Home Dashboard
         </h2>
+        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-3">Crea un nuovo Post </a>
+
+
+
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsum inventore eius corrupti quis placeat,
             hic nisi ducimus dignissimos nulla optio aliquid excepturi dolore sit error incidunt animi quisquam nam qui

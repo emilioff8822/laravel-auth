@@ -25,6 +25,7 @@
                         @endphp
                         <td>{{ date_format($date, 'd/m/Y') }}</td>
                         <td><a href="{{ route('admin.posts.show', $post) }}" class="btn btn-primary">VAI</a></td>
+                        <td><a href="" class="btn btn-success">Modfica</a></td>
                     </tr>
                 @endforeach
 
