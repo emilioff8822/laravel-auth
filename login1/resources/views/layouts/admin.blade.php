@@ -39,7 +39,7 @@
 
 
 
-        <main class="overflow-scroll">
+        <main class="overflow-auto w-100">
             @yield('content')
         </main>
     </div>

@@ -5,7 +5,7 @@
         <h2 class="fs-4 text-secondary my-4">
             Home Dashboard
         </h2>
-        <div class="row justify-content-center">
+        <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ipsum inventore eius corrupti quis placeat,
             hic nisi ducimus dignissimos nulla optio aliquid excepturi dolore sit error incidunt animi quisquam nam qui
             doloribus ipsam! Minus ex facilis rem soluta distinctio vero assumenda labore ipsum rerum id excepturi impedit
@@ -43,6 +43,6 @@
             vitae rerum voluptas aut voluptatem dolorum. Ipsa cupiditate veritatis rerum modi facere nam maxime corrupti
             ipsum.
 
-        </div>
+        </p>
     </div>
 @endsection
