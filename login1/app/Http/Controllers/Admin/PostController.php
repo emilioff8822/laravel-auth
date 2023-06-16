@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $form_data= $request->all();
         $form_data['slug'] = Post::generateSlug($form_data['title']);
