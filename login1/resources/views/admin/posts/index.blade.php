@@ -24,7 +24,7 @@
                             $date = date_create($post->date);
                         @endphp
                         <td>{{ date_format($date, 'd/m/Y') }}</td>
-                        <td><a href="" class="btn btn-primary">VAI</a></td>
+                        <td><a href="{{ route('admin.posts.show', $post) }}" class="btn btn-primary">VAI</a></td>
                     </tr>
                 @endforeach
 
