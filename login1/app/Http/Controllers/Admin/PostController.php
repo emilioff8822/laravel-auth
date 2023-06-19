@@ -34,8 +34,15 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
-        return view('admin.posts.create');
+        $title = 'Creazione di un nuovo post';
+        $method = 'POST';
+        $route = route('admin.posts.store');
+        //post glielo passo come null quindi nell'old non puo esistere title
+        $post = null;
+
+        return view('admin.posts.create-edit', compact('title', 'method', 'route', 'post'));
     }
 
     /**
@@ -94,9 +101,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $title = "Modifica di: " . $post->title;
+        $method = 'PUT';
+        $route = route('admin.posts.update', $post);
+        return view('admin.posts.create-edit', compact('title', 'method', 'route', 'post'));
     }
 
     /**
@@ -106,9 +116,39 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $form_data = $request->all();
+        if($form_data['title'] != $post->title ){
+        $form_data['slug'] = Post::generateSlug($form_data['title']);
+        }else{
+            $form_data['slug'] = $post->slug;
+        }
+        $form_data['date'] = date('Y-m-d');
+
+        //per quanto riguarda l;u'update dell'immagine uso il controllo che avevo usato in precedenza
+         //verifico se e' stata caricata un immagine
+        if(array_key_exists('image', $form_data)){
+
+        //rispetto a prima ce' questa aggiunta,se l'immagine esiste vuol dire che ne ' stata caricata una nuova ed elimino la vecchia
+            if($post->image_path){
+                Storage::disk('public')->delete($post->image_path);
+            }
+
+            //prima di salvare l'immagine salvo il nome
+         $form_data['image_original_name'] = $request->file('image')->getClientOriginalName();
+         //salvo l'immagine nella cartella uploads ed in $form_data['image_path'] salvo il percorso
+        $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
+
+
+
+        }
+
+        $post->update($form_data);
+        return redirect()->route('admin.posts.show', $post);
+
+
+
     }
 
     /**
@@ -117,8 +157,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        //se il post da eliminare contiene un immagine la devo cancellare dalla cartella
+        if($post->image_path){
+                Storage::disk('public')->delete($post->image_path);
+            }
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('deleted', 'Post eliminato correttamente');
     }
 }

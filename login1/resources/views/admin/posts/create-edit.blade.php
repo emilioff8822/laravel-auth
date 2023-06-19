@@ -16,16 +16,18 @@
 
 
         <h2 class="fs-4 text-secondary my-4 ">
-            Creazione nuovo post
+            {{ $title }}
 
         </h2>
 
-        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ $route }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method($method)
+
 
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
-                <input name="title" value="{{ old('title') }}"
+                <input name="title" value="{{ old('title', $post?->title) }}"
                     class="form-control @error('title') is-invalid
                 @enderror" id="title"
                     placeholder="Titolo">
@@ -37,22 +39,24 @@
 
             <div class="mb-3">
                 <label for="text" class="form-label">Testo</label>
-                <textarea class="form-control post-text" name="text" id="text" cols="30" rows="10">{{ old('title') }}</textarea>
+                <textarea class="form-control post-text" name="text" id="text" cols="30" rows="10">{{ old('title', $post?->title) }}</textarea>
                 @error('text')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="reading_time" class="form-label">Immagine</label>
-                <input name="image" class="form-control" id="image" type="file" onchange="showImage(event)">
+                <input name="image" class="form-control mb-3 mt-3" id="image" type="file"
+                    onchange="showImage(event)">
 
-                <img width="150" id="prev-image" src="" alt="">
+                <img width="150" id="prev-image" src="{{ asset('storage/' . $post?->image_path) }}"
+                    onerror="this.src='/img/111.jpeg'">
             </div>
 
             <div class="mb-3">
                 <label for="reading_time" class="form-label">Tempo di lettura</label>
-                <input name="reading_time" value="{{ old('reading_time') }}" class="form-control" id="number"
-                    placeholder="">
+                <input name="reading_time" value="{{ old('reading_time', $post?->reading_time) }}" class="form-control"
+                    id="number" placeholder="">
             </div>
 
             <button type="submit" class="btn btn-dark">Invia</button>
