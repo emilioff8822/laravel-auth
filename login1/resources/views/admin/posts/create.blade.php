@@ -44,7 +44,9 @@
             </div>
             <div class="mb-3">
                 <label for="reading_time" class="form-label">Immagine</label>
-                <input name="image" class="form-control" id="image" type="file">
+                <input name="image" class="form-control" id="image" type="file" onchange="showImage(event)">
+
+                <img width="150" id="prev-image" src="" alt="">
             </div>
 
             <div class="mb-3">
@@ -74,5 +76,10 @@
             .catch(error => {
                 console.error(error);
             });
+
+        function showImage(event) {
+            const tagImage = document.getElementById('prev-image');
+            tagImage.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 @endsection
