@@ -9,6 +9,10 @@
 
         <p>{{ $date_formatted }}</p>
         <p>{!! $post->text !!}</p>
+        <div>
+            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}">
+        </div>
+
 
 
 
