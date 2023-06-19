@@ -16,7 +16,9 @@ class Post extends Model
     'slug',
     'text',
     'date',
-    'reading_time'
+    'reading_time',
+    'image_path',
+    'image_original_name'
 
 
     ];

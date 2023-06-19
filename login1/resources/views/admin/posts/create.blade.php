@@ -20,7 +20,7 @@
 
         </h2>
 
-        <form action="{{ route('admin.posts.store') }}" method="POST">
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -41,6 +41,10 @@
                 @error('text')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
+            </div>
+            <div class="mb-3">
+                <label for="reading_time" class="form-label">Immagine</label>
+                <input name="image" class="form-control" id="image" type="file">
             </div>
 
             <div class="mb-3">
